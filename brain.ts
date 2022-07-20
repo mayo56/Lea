@@ -1,7 +1,9 @@
+/////////////////////----------------
+// DotEnv
 import dotenv from "dotenv";
 dotenv.config({ path: "./config/.env"});
 /////////////////////-----------------
-//PostgreSQL
+// PostgreSQL
 import { Client } from "pg";
 const credentials = {
     user: process.env.DB_USER,
@@ -20,9 +22,15 @@ async function requestDB(req: string) {
 ////////////-------------------------
 
 
+////////////////---------------------
+// Import des fonctions de trie
+import { sortSpecialCaractere, forUseInSQLRequest } from "./functions/sortFunction"
+//////////---------------------------
 
 async function Lea (phrase:string) {
-    const data = await requestDB(`select * from word where upper(word)='${phrase.toUpperCase()}'`);
+    const MotsDePhrase = sortSpecialCaractere(phrase);
+    const RequestMotsDePhrase = forUseInSQLRequest(MotsDePhrase);
+    const data = await requestDB(`select * from word where upper(word) in (${RequestMotsDePhrase.join(",")})`);
     if (data.rows.length < 1) return console.log("Je ne connais pas ce mot, apprenez le moi !");
     else console.log(data.rows);
 };
