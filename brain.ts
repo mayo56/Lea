@@ -1,11 +1,12 @@
+require("dotenv")
 /////////////////////-----------------
 //PostgreSQL
 import { Client } from "pg";
 const credentials = {
-    user: 'Mayo',
+    user: process.env.DB_USER,
     host: 'localhost',
     database: 'LeaDB',
-    password: 'GEGE3325ad',
+    password: process.env.DB_PASS,
     port: 5455
 };
 async function requestDB(req: string) {
@@ -20,9 +21,9 @@ async function requestDB(req: string) {
 
 
 async function Lea (phrase:string) {
-    const data = requestDB(`select * from word where upper(word)='${phrase.toUpperCase()}'`);
-    if ((await data).rows.length < 1) return console.log("Je ne connais pas ce mot, apprenez le moi !");
-    else console.log((await data).rows);
+    const data = await requestDB(`select * from word where upper(word)='${phrase.toUpperCase()}'`);
+    if (data.rows.length < 1) return console.log("Je ne connais pas ce mot, apprenez le moi !");
+    else console.log(data.rows);
 };
 
 Lea("bonjour")
