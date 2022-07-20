@@ -16,9 +16,8 @@ export function resAccordToSize(resDB:Array<{word:string, type:string}>, sortInp
         sortInput.forEach(e => {
             if (!resDBWords.includes(e)) MotsInconnue.push(e);
         });
-        console.log(MotsInconnue)
         return `je ne connais pas ces mots là:\n${MotsInconnue.join(", ")}`
     }else {
         return "huhu"
-    }
-}
+    };
+};
