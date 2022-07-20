@@ -12,10 +12,10 @@ export function resAccordToSize(resDB:Array<{word:string, type:string}>, sortInp
     if (TailleResDB < 1) return "Je ne comprends aucuns mots, apprends-les moi !";
     if (TailleResDB !== TailleSortInput) {
         const resDBWords = resDB.map(e => e.word);
-        const MotsInconnue = sortInput.map(e => {
-            if (!resDBWords.includes(e)) return e;
-            return;
-        })
+        const MotsInconnue:string[] = [];
+        sortInput.forEach(e => {
+            if (!resDBWords.includes(e)) MotsInconnue.push(e);
+        });
         console.log(MotsInconnue)
         return `je ne connais pas ces mots là:\n${MotsInconnue.join(", ")}`
     }else {

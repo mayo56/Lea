@@ -34,8 +34,7 @@ async function Lea (phrase:string) {
     const RequestMotsDePhrase = forUseInSQLRequest(MotsDePhrase);
     const data = await requestDB(`select * from word where upper(word) in (${RequestMotsDePhrase.join(",")})`);
     const res = resAccordToSize(data.rows, MotsDePhrase);
-    console.log(data.rows, MotsDePhrase)
     console.log(res)
 };
 
-Lea("bonjour, je suis bo")
+Lea("bonjour")
