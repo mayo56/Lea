@@ -25,14 +25,17 @@ async function requestDB(req: string) {
 ////////////////---------------------
 // Import des fonctions de trie
 import { sortSpecialCaractere, forUseInSQLRequest } from "./functions/sortFunction"
+// import fonctions de réponse
+import { resAccordToSize } from "./functions/FirstResFunctions";
 //////////---------------------------
 
 async function Lea (phrase:string) {
     const MotsDePhrase = sortSpecialCaractere(phrase);
     const RequestMotsDePhrase = forUseInSQLRequest(MotsDePhrase);
     const data = await requestDB(`select * from word where upper(word) in (${RequestMotsDePhrase.join(",")})`);
-    if (data.rows.length < 1) return console.log("Je ne connais pas ce mot, apprenez le moi !");
-    else console.log(data.rows);
+    const res = resAccordToSize(data.rows, MotsDePhrase);
+    console.log(data.rows, MotsDePhrase)
+    console.log(res)
 };
 
-Lea("bonjour")
+Lea("bonjour, je suis bo")

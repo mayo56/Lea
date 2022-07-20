@@ -4,7 +4,7 @@
  * @return { string[] } Retourne un array avec tous les mots trié (caractère spéciaux et espace enlevé )
  */
 export function sortSpecialCaractere(input:string):string[] {
-    const sortPhrase = input.split(/\s\W*/g)
+    const sortPhrase = input.split(/\W*\s/g)
     return sortPhrase;
 }
 
