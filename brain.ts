@@ -1,4 +1,5 @@
-require("dotenv")
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/.env"});
 /////////////////////-----------------
 //PostgreSQL
 import { Client } from "pg";
